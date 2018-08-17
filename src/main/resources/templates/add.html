@@ -9,14 +9,17 @@
             crossorigin="anonymous"></script>
     <title>Add Task</title>
 </head>
+<style>
+    body {background-color:#f4feff}
+</style>
 <body>
 <div th:replace="znav :: header"></div>
-<H1>Add Task</H1>
+<H1>Add Message</H1>
 
 
 <div align="center">
 
-    <form action="#" th:action="@{/process2}"
+    <form action="#" th:action="@{/processing}"
           th:object="${bullhorn}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <strong>
@@ -26,7 +29,7 @@
 
             Message:<span th:if="${#fields.hasErrors('task')}"
                           th:errors="*{task}">Task Error</span>
-            <textarea id="task" placeholder="Task"
+            <textarea id="task" placeholder="Type a message"
                       th:field="*{task}"
                       row="3"/><br/>
 

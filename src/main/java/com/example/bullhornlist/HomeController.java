@@ -17,27 +17,27 @@ import java.security.Principal;
 public class HomeController {
     @Autowired
     private UserService userService;
-    
+
     @Autowired
-     BullhornRepository bullhornRepository;
+    BullhornRepository bullhornRepository;
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping(value="/register", method= RequestMethod.GET)
-    public String showRegistrationPage(Model model){
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String showRegistrationPage(Model model) {
         model.addAttribute("user", new User());
         return "registration";
     }
 
-    @RequestMapping(value ="/register", method=RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processRegistrationPage(
             @Valid @ModelAttribute("user") User user,
             BindingResult result,
-            Model model){
+            Model model) {
         model.addAttribute("user", user); //here
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "registration";
-        }else{
+        } else {
             userService.saveUser(user);
             model.addAttribute("message",
                     "User Account Successfully Created");
@@ -50,21 +50,22 @@ public class HomeController {
         model.addAttribute("bullhorn", bullhornRepository.findById(id).get());
         return "add";
     }
+
     @RequestMapping("/delete/{id}")
-    public String delCourse(@PathVariable("id") long id){
+    public String delCourse(@PathVariable("id") long id) {
         bullhornRepository.deleteById(id);
         return "redirect:/bullhornlist";
     }
 
 
     @GetMapping("/add")
-    public String addBullhorn(Model model){
+    public String addBullhorn(Model model) {
         model.addAttribute("bullhorn", new Bullhorn());
         return "add";
     }
-    @PostMapping("/process2")
-    public String processForm(@ModelAttribute Bullhorn bullhorn, BindingResult result, Model model)
-    {
+
+    @PostMapping("/processing")
+    public String processForm(@ModelAttribute Bullhorn bullhorn, BindingResult result, Model model) {
         String username = getUser().getUsername();
         bullhorn.setUsername(username);
         bullhornRepository.save(bullhorn);
@@ -73,26 +74,26 @@ public class HomeController {
     }
 
 
-    private User getUser(){
+    private User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentusername = authentication.getName();
         User user = userRepository.findByUsername(currentusername);
         return user;
     }
-    @RequestMapping("/")
-    public  String index(Model model){
 
+    @RequestMapping("/")
+    public String index(Model model) {
         model.addAttribute("bullhorns", bullhornRepository.findAll());
         return "index";
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 
     @RequestMapping("/bullhornlist")
-    public String bullhornlist(HttpServletRequest request, Authentication authentication, Principal principal, Model model){
+    public String bullhornlist(HttpServletRequest request, Authentication authentication, Principal principal, Model model) {
         Boolean isAdmin = request.isUserInRole("ADMIN");
         Boolean isUser = request.isUserInRole("USER");
         UserDetails userDetails = (UserDetails)
