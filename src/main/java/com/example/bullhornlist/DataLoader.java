@@ -10,17 +10,17 @@ import java.util.Arrays;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-//    @Autowired
-//    UserRepository userRepository;
-//
-//    @Autowired
-//    RoleRepository roleRepository;
-//
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-//
-//    @Override
-//    public void run(String... strings) throws Exception {
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public void run(String... strings) throws Exception {
 //        System.out.println("Dataloder running ...");
 //        roleRepository.save(new Role("USER"));
 //        roleRepository.save(new Role("ADMIN"));
@@ -48,6 +48,6 @@ public class DataLoader implements CommandLineRunner {
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
 //        user.setRoles(Arrays.asList(userRole, adminRole));
 //        userRepository.save(user);
-//    }
+    }
 
 }
