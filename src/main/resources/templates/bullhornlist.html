@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge"/>
@@ -20,6 +21,34 @@
 <div align="center">
 
     <h2>Profile</h2>
+
+    <div style="width:500px;height:80px;border:1px solid #white; background: #7bfff7">
+
+    <div sec:authorize="isAuthenticated()">
+        This content is only shown to authenticated users.<br/>
+
+        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+            This content is only shown to administrators.
+        </div>
+        <div sec:authorize="hasAuthority('ROLE_USER')">
+            This is content is only shown to users.
+        </div>
+        Logged user: <span sec:authentication="name">
+    The value of the "name" property of the authentication object should appear here
+</span><br/>
+        Roles: <span sec:authentication="principal.authorities">
+    [ROLE_USER, ROLE_ADMIN]</span><br/><br/>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        This content is only shown to anonymous users.
+    </div>
+
+</div>
+
+    <!--<div sec:authorize="isAuthenticated()">-->
+    <!--First Name: <span th:text="${user.firstName}"></span><br/> </p>-->
+    <!--<p>Last Name: <span th:text="${user.lastName}"></span><br/></p>-->
+    <!--</div>-->
 
     <table class="table">
 

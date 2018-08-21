@@ -34,7 +34,7 @@ public class HomeController {
             @Valid @ModelAttribute("user") User user,
             BindingResult result,
             Model model) {
-        model.addAttribute("user", user); //here
+        model.addAttribute("user", user);
         if (result.hasErrors()) {
             return "registration";
         } else {
@@ -103,5 +103,7 @@ public class HomeController {
         model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
         return "bullhornlist";
     }
+
+
 
 }
