@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="x-ua-compatible" content="IE=edge"/>
@@ -19,7 +20,7 @@
     <div align="right">
 
             <strong>
-                <a href="/">Feed</a>&emsp;<a href="/bullhornlist">Profile</a>&emsp;<a href="/add">Add
+                <a href="/">Feed</a>&emsp;<a href="/bullhornlist"> <span sec:authentication="name"></span> </a>&emsp;<a href="/add">Add
                 Message</a>&emsp;<a href="/logout">Log Out</a>
             </strong>
 

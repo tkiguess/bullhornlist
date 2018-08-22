@@ -14,7 +14,7 @@ public class Bullhorn {
     private long Id;
 
     @NotNull
-    private String task;
+    private String msg;
 
 
     private String username;
@@ -33,12 +33,12 @@ public class Bullhorn {
         Id = id;
     }
 
-    public String getTask() {
-        return task;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public String getUsername() {

@@ -45,10 +45,11 @@
 
 </div>
 
-    <!--<div sec:authorize="isAuthenticated()">-->
-    <!--First Name: <span th:text="${user.firstName}"></span><br/> </p>-->
-    <!--<p>Last Name: <span th:text="${user.lastName}"></span><br/></p>-->
-    <!--</div>-->
+
+   <p> <h2><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h2><br/>
+       <span th:text="${user.email}"></span>
+   </p>
+
 
     <table class="table">
 
@@ -57,7 +58,7 @@
             <button><a href="/add">Add Message</a></button>
         </tr>
         <tr th:each="bullhorn : ${bullhorns}">
-            <td th:text="${bullhorn.task}"></td>
+            <td th:text="${bullhorn.msg}"></td>
             <td><td th:text="${bullhorn.birthday}"></td></td>
 
             <td>

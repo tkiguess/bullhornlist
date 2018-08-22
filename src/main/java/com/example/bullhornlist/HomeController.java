@@ -69,6 +69,7 @@ public class HomeController {
         String username = getUser().getUsername();
         bullhorn.setUsername(username);
         bullhornRepository.save(bullhorn);
+        model.addAttribute("user", userRepository.findByUsername(username));
         model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
         return "bullhornlist";
     }
@@ -99,11 +100,14 @@ public class HomeController {
         UserDetails userDetails = (UserDetails)
                 authentication.getPrincipal();
 
+
+
+
         String username = principal.getName();
         model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
+        model.addAttribute("user", userRepository.findByUsername(username));
         return "bullhornlist";
     }
-
 
 
 }

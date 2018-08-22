@@ -28,7 +28,7 @@ Current user: <span sec:authentication="name"> </span>
 
         <tr th:each="bullhorn : ${bullhorns}">
 
-            <td th:text="${bullhorn.task}"></td>
+            <td th:text="${bullhorn.msg}"></td>
             <Strong>
                 <td th:text="${bullhorn.bigname}"></td>
                 <td th:text="${bullhorn.birthday}"></td>
