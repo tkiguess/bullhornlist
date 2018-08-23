@@ -3,7 +3,6 @@ package com.example.bullhornlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -85,6 +84,7 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("bullhorns", bullhornRepository.findAll());
+        model.addAttribute("user", userService.getCurrentUser());
         return "index";
     }
 
@@ -95,19 +95,25 @@ public class HomeController {
 
     @RequestMapping("/bullhornlist")
     public String bullhornlist(HttpServletRequest request, Authentication authentication, Principal principal, Model model) {
-        Boolean isAdmin = request.isUserInRole("ADMIN");
-        Boolean isUser = request.isUserInRole("USER");
-        UserDetails userDetails = (UserDetails)
-                authentication.getPrincipal();
-
-
-
+//        Boolean isAdmin = request.isUserInRole("ADMIN");
+//        Boolean isUser = request.isUserInRole("USER");
+//        UserDetails userDetails = (UserDetails)
+//                authentication.getPrincipal();
 
         String username = principal.getName();
         model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
         model.addAttribute("user", userRepository.findByUsername(username));
         return "bullhornlist";
     }
+
+    @RequestMapping("/profile/{username}")
+    public String showCourse(@PathVariable("username") String username, Model model){
+//        username = userService.getCurrentUser().getUsername();
+        model.addAttribute("user", userRepository.findByUsername(username));
+
+        return "bigboi";
+    }
+
 
 
 }

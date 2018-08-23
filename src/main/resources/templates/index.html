@@ -32,6 +32,7 @@ Current user: <span sec:authentication="name"> </span>
             <Strong>
                 <td th:text="${bullhorn.bigname}"></td>
                 <td th:text="${bullhorn.birthday}"></td>
+                <td> <a th:href="@{profile/{id}(id=${bullhorn.username})}">Profile</a></td>
             </Strong>
         </tr>
 
