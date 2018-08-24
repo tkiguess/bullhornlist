@@ -16,7 +16,6 @@ import java.security.Principal;
 public class HomeController {
     @Autowired
     private UserService userService;
-
     @Autowired
     BullhornRepository bullhornRepository;
     @Autowired
@@ -70,7 +69,7 @@ public class HomeController {
         bullhornRepository.save(bullhorn);
         model.addAttribute("user", userRepository.findByUsername(username));
         model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
-        return "bullhornlist";
+        return "index";
     }
 
 
@@ -93,6 +92,11 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping("/logout2")
+    public String logout2() {
+        return "logoutout";
+    }
+
     @RequestMapping("/bullhornlist")
     public String bullhornlist(HttpServletRequest request, Authentication authentication, Principal principal, Model model) {
 //        Boolean isAdmin = request.isUserInRole("ADMIN");
@@ -107,11 +111,11 @@ public class HomeController {
     }
 
     @RequestMapping("/profile/{username}")
-    public String showCourse(@PathVariable("username") String username, Model model){
+    public String showCourse(@PathVariable("username") String username,Principal principal, Model model){
 //        username = userService.getCurrentUser().getUsername();
         model.addAttribute("user", userRepository.findByUsername(username));
-
-        return "bigboi";
+        model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
+        return "profile";
     }
 
 

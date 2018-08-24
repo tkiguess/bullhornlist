@@ -16,13 +16,13 @@
     body {background-color:#f4feff}
 </style>
 <body>
-<div th:replace="znav :: header"></div>
-Current user: <span sec:authentication="name"> </span>
 
 <div align="center">
 
-    <h2>Welcome to Bullhorn messaging board</h2>
+    <div sec:authorize="isAuthenticated()">
+        <div th:replace="znav :: header"></div>
 
+        <h2>Bullhorn</h2>
 
     <table class="table">
 
@@ -35,18 +35,34 @@ Current user: <span sec:authentication="name"> </span>
                 <td> <a th:href="@{profile/{id}(id=${bullhorn.username})}">Profile</a></td>
             </Strong>
         </tr>
-
-        <strong>
-            <tr>Messages</tr>
+        <strong><tr>Messages</tr>
             <tr> /Posted By</tr>
-            <tr> /Date</tr>
-        </strong>
-
-
+            <tr> /Date</tr></strong>
     </table>
 
     <a href="/add">Add Message</a>
 
+    </div>
+
+    <div sec:authorize="isAnonymous()">
+        <p>
+
+
+
+
+
+
+        </p>
+        <h2>Welcome to Bullhorn messaging board</h2>
+        <p>
+
+        This is a demo social media platform, created to show an understanding of Spring Framework.
+
+        <form action="/add">
+            <input type="submit" class="btn btn-outline-success" value="Lets Get Started" />
+        </form>
+        </p>
+    </div>
 
 </div>
 </body>

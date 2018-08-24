@@ -19,6 +19,8 @@
 
 <div align="center">
 
+    Currently adding a message to be added to your board.
+
     <form action="#" th:action="@{/processing}"
           th:object="${bullhorn}" method="post">
         <input type="hidden" th:field="*{id}"/>
@@ -37,7 +39,7 @@
             <span th:if="${#fields.hasErrors('birthday')}"
                   th:errors="*{birthday}"></span><br/>
         </strong>
-        <button type="submit" class="btn bnt-default">Submit</button>
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
     </form>
 </div>
 </body>
