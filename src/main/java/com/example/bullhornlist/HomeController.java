@@ -20,6 +20,8 @@ public class HomeController {
     BullhornRepository bullhornRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    FollowerRepository followerRepository;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model) {
@@ -73,6 +75,18 @@ public class HomeController {
     }
 
 
+    @PostMapping("/following")
+    public String processForm(@ModelAttribute Follower follower, BindingResult result, Model model) {
+        String username = getUser().getUsername();
+        follower.setUsername(username);
+        followerRepository.save(follower);
+        model.addAttribute("user", userRepository.findByUsername(username));
+        model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
+        model.addAttribute("follower", followerRepository.findByUsername(username));
+        return "index";
+    }
+
+
     private User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentusername = authentication.getName();
@@ -97,6 +111,7 @@ public class HomeController {
         return "logoutout";
     }
 
+
     @RequestMapping("/bullhornlist")
     public String bullhornlist(HttpServletRequest request, Authentication authentication, Principal principal, Model model) {
 //        Boolean isAdmin = request.isUserInRole("ADMIN");
@@ -111,13 +126,13 @@ public class HomeController {
     }
 
     @RequestMapping("/profile/{username}")
-    public String showCourse(@PathVariable("username") String username,Principal principal, Model model){
+    public String showCourse(@PathVariable("username") String username, Principal principal, Model model) {
 //        username = userService.getCurrentUser().getUsername();
         model.addAttribute("user", userRepository.findByUsername(username));
         model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
+        model.addAttribute("follower", followerRepository.findByUsername(username));
+        model.addAttribute("follower", new Follower());
         return "profile";
     }
-
-
 
 }
