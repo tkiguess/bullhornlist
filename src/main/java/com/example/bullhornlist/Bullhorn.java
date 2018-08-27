@@ -19,11 +19,15 @@ public class Bullhorn {
 
     private String username;
 
+    private String followers;
+
     @NotNull
     private String bigname;
 
     @NotNull
     private String birthday;
+
+
 
     public long getId() {
         return Id;
@@ -63,5 +67,13 @@ public class Bullhorn {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(String followers) {
+        this.followers = followers;
     }
 }

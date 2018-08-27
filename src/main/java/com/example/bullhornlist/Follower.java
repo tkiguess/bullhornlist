@@ -1,9 +1,6 @@
 package com.example.bullhornlist;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Follower {
@@ -14,6 +11,18 @@ public class Follower {
     private String username;
 
     private String followerfollowing;
+
+//    @OneToMany
+//    @JoinColumn(name = "user_id")
+
+
+    @ManyToOne (fetch=FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    private User user;
+
+
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    private User user;
 
     public long getId() {
         return Id;
@@ -37,5 +46,13 @@ public class Follower {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

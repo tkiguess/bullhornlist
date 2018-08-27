@@ -135,4 +135,25 @@ public class HomeController {
         return "profile";
     }
 
+    @RequestMapping("/follow/{id}")
+    public String addfollow(@PathVariable("id") long id, Model model) {
+        Follower f = new Follower();
+        f.setUser(userRepository.findById(id).get());
+        String username = userService.getCurrentUser().getUsername();
+        f.setUsername(username);
+        followerRepository.save(f);
+        model.addAttribute("user", userRepository.findByUsername(username));
+        model.addAttribute("bullhorns", bullhornRepository.findByUsername(username));
+        model.addAttribute("follower", followerRepository.findByUsername(username));
+        return "index";
+    }
+
+//    @RequestMapping("/following")
+//    public String flower(Principal principal, Model model) {
+//        String username = principal.getName();
+//        model.addAttribute("bullhorns", bullhornRepository.findByFollowers(followers));
+//        model.addAttribute("follower", userRepository.findByFollowers(followers));
+//        return "following";
+//    }
+
 }

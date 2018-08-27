@@ -2,6 +2,7 @@ package com.example.bullhornlist;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name="USER_DATA")
@@ -30,6 +31,21 @@ public class User {
     private String username;
 
 
+//    @OneToMany
+//    @JoinColumn(name = "follower_id")
+//    public Set<Follower> followers;
+
+
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    public Set<Follower> followers;
+
+
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    private Follower follower;
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -43,6 +59,8 @@ public class User {
         this.enabled = enabled;
         this.username = username;
     }
+
+
 
     public User() {
     }
@@ -109,5 +127,13 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Follower> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Set<Follower> followers) {
+        this.followers = followers;
     }
 }
